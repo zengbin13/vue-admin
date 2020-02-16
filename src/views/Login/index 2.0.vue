@@ -51,16 +51,12 @@
 
 <script>
 import { stripscript, validateEmail, validatePass } from '@/utils/validate.js'
-//1.导入composition-api
-import {reactive, ref} from '@vue/composition-api'
-
 export default {
     name: 'login',
-    setup(props, context) {
-      //表单验证规则
-      let checkCode = (rule, value, callback) => {
-        // ruleForm.checkCode = stripscript(value)  //过滤特殊字符
-        // value = ruleForm.checkCode
+    data() {
+      var checkCode = (rule, value, callback) => {
+        this.ruleForm.checkCode = stripscript(value)  //过滤特殊字符
+        value = this.ruleForm.checkCode
         let reg = /^[a-z0-9]{6}$/ 
         if (value === '') {
           callback(new Error('请输入验证码'));
@@ -70,7 +66,7 @@ export default {
           callback();
         }
       };
-      let validateUsername = (rule, value, callback) => {
+      var validateUsername = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入用户名'));
         } else if (!validateEmail(value)) {
@@ -79,9 +75,9 @@ export default {
           callback();
         }
       };
-      let validatePassword = (rule, value, callback) => {
-        ruleForm.password = stripscript(value)  //过滤特殊字符
-        value = ruleForm.password
+      var validatePassword = (rule, value, callback) => {
+        this.ruleForm.password = stripscript(value)  //过滤特殊字符
+        value = this.ruleForm.password
         if (value === '') {
           callback(new Error('请输入密码'));
         } else if (!validatePass(value)) {
@@ -90,9 +86,9 @@ export default {
           callback();
         }
       };
-      let validatePassword2 = (rule, value, callback) => {
-        ruleForm.password2 = stripscript(value)  //过滤特殊字符
-        value = ruleForm.password2
+      var validatePassword2 = (rule, value, callback) => {
+        this.ruleForm.password2 = stripscript(value)  //过滤特殊字符
+        value = this.ruleForm.password2
         if (value === '') {
           callback(new Error('请再次输入密码'));
         } else if (value != this.ruleForm.password) {
@@ -101,50 +97,46 @@ export default {
           callback();
         }
       };
-
-      /* 
-      声明数据
-      */
-      const menuTab = reactive([
-        {txt: '登录', current: true, type:'login'},
-        {txt: '注册', current: false, type:'register'}
-      ])
-      const model = ref('login')
-      const ruleForm = reactive({
-        username: '',
-        password: '',
-        password2: '',
-        checkCode: ''
-      })
-      const rules = reactive({
-        username: [
-          { validator: validateUsername, trigger: 'blur' }
+      return {
+        menuTab: [
+          {txt: '登录', current: true, type:'login'},
+          {txt: '注册', current: false, type:'register'}
         ],
-        password: [
-          { validator: validatePassword, trigger: 'blur' }
-        ],
-        password2: [
-          { validator: validatePassword2, trigger: 'blur' }
-        ],
-        checkCode: [
-          { validator: checkCode, trigger: 'blur' }
-        ]
-      })
-      /* 
-      声明函数
-      */
-      const toggleMenu = (data) => {  
-        console.log(menuTab);
-        console.log(model);
-              
-        menuTab.forEach( item => {
+        //模块值
+        model: 'login',
+        //表单数据
+        ruleForm: {
+          username: '',
+          password: '',
+          password2: '',
+          checkCode: ''
+        },
+        rules: {
+          username: [
+            { validator: validateUsername, trigger: 'blur' }
+          ],
+          password: [
+            { validator: validatePassword, trigger: 'blur' }
+          ],
+          password2: [
+            { validator: validatePassword2, trigger: 'blur' }
+          ],
+          checkCode: [
+            { validator: checkCode, trigger: 'blur' }
+          ]
+        }
+      }
+    },
+    methods: {
+      toggleMenu(data) {
+        this.menuTab.forEach( item => {
           item.current = false
         })
         data.current = true
-        model.value = data.type
-      }
-      const submitForm = (formName) => {
-        context.refs[formName].validate((valid) => {
+        this.model = data.type
+      },
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
           } else {
@@ -153,15 +145,7 @@ export default {
           }
         });
       }
-      return {
-        menuTab,
-        model,
-        ruleForm,
-        rules,
-        toggleMenu,
-        submitForm
-      }
-    },
+    }
 }
 </script>
 
