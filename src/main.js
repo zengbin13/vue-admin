@@ -1,4 +1,5 @@
 import Vue from "vue";
+// vue 默认指向 "vue/dist/vue.runtime.common.js" ——runtime
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -13,8 +14,13 @@ import VueCompositionApi from '@vue/composition-api'
 Vue.use(ElementUI);
 Vue.use(VueCompositionApi);
 
+// 解析svg文件，使用svg组件
+import './icons/index'
+
 Vue.config.productionTip = false;
 
+
+// runtime 模式
 new Vue({
   router,
   store,

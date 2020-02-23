@@ -1,0 +1,23 @@
+<template>
+  <el-container>
+    <LayoutNav />
+    <el-container direction="vertical">
+      <LayoutHeader />
+      <LayoutMain />
+    </el-container>
+  </el-container>
+</template>
+
+<script>
+import LayoutHeader from "./Components/Header";
+import LayoutMain from "./Components/Main";
+import LayoutNav from "./Components/Nav";
+
+export default {
+  name: "layout",
+  components: { LayoutHeader, LayoutMain, LayoutNav },
+  setup() {}
+};
+</script>
+
+<style lang="css" scoped></style>
