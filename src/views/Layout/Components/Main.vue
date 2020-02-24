@@ -12,8 +12,8 @@ export default {
 
 <style lang="scss" scoped>
 #main-wrap {
-  border-top: 30px solid #f7f7f7;
-  border-left: 30px solid #f7f7f7;
+  border: 30px solid #f7f7f7;
+  border-bottom: 0px solid #f7f7f7;
   background-color: #fff;
 }
 </style>

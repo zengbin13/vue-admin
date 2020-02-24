@@ -37,13 +37,4 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  .svg-icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.25em;
-    fill: currentColor;
-    color: rgb(255, 255, 255);
-    overflow: hidden;
-    padding-right: 0.5em;
-  }
 </style>
