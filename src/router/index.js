@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "console",
+    redirect: "login",
     hidden: true,
     meta: { name: "主页" }
   },

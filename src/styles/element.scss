@@ -1,5 +1,14 @@
 // 对element-UI进行样式修改
 
 .el-menu-item.is-active {
-  background-color: #f56c6c !important; 
+  background-color: $mainColor !important;
+}
+
+.el-menu--vertical {
+  .el-menu-item {
+    background-color: $secColor !important;
+    &:hover {
+      background-color: $mainColor !important;
+    }
+  }
 }

@@ -2,93 +2,40 @@
   <div id="login">
     <div class="login-wrap">
       <ul class="menu-tab">
-        <li
-          v-for="(item, index) in menuTab"
-          :key="index"
-          :class="{ current: item.current }"
-          @click="toggleMenu(item)"
-        >
+        <li v-for="(item, index) in menuTab" :key="index" :class="{ current: item.current }" @click="toggleMenu(item)">
           {{ item.txt }}
         </li>
       </ul>
       <!-- 表单 start -->
-      <el-form
-        :model="ruleForm"
-        status-icon
-        :rules="rules"
-        ref="ruleForm"
-        class="login-form"
-        size="medium"
-      >
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login-form" size="medium">
         <el-form-item prop="username" class="form-item">
           <label for="username">邮箱</label>
-          <el-input
-            type="text"
-            id="username"
-            v-model="ruleForm.username"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="text" id="username" v-model="ruleForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item prop="password" class="form-item">
           <label for="password">密码</label>
-          <el-input
-            type="password"
-            id="password"
-            v-model="ruleForm.password"
-            autocomplete="off"
-            maxlength="20"
-            minlength="6"
-          ></el-input>
+          <el-input type="password" id="password" v-model="ruleForm.password" autocomplete="off" maxlength="20" minlength="6"></el-input>
         </el-form-item>
 
-        <el-form-item
-          prop="password2"
-          class="form-item"
-          v-if="this.model === 'register'"
-        >
+        <el-form-item prop="password2" class="form-item" v-if="this.model === 'register'">
           <label for="password2">重复密码</label>
-          <el-input
-            type="password"
-            id="password2"
-            v-model="ruleForm.password2"
-            autocomplete="off"
-            maxlength="20"
-            minlength="6"
-          ></el-input>
+          <el-input type="password" id="password2" v-model="ruleForm.password2" autocomplete="off" maxlength="20" minlength="6"></el-input>
         </el-form-item>
 
         <el-form-item prop="checkCode" class="form-item">
           <label for="checkCode">验证码</label>
           <el-row :gutter="12">
             <el-col :span="15">
-              <el-input
-                id="checkCode"
-                v-model="ruleForm.checkCode"
-                maxlength="6"
-                minlength="6"
-              ></el-input>
+              <el-input id="checkCode" v-model="ruleForm.checkCode" maxlength="6" minlength="6"></el-input>
             </el-col>
             <el-col :span="9">
-              <el-button
-                type="success"
-                class="block"
-                size="medium"
-                @click="getSms()"
-                :disabled="codeButton.status"
-                >{{ codeButton.text }}</el-button
-              >
+              <el-button type="success" class="block" size="medium" @click="getSms()" :disabled="codeButton.status">{{ codeButton.text }}</el-button>
             </el-col>
           </el-row>
         </el-form-item>
 
         <el-form-item class="form-item">
-          <el-button
-            type="danger"
-            @click="submitForm('ruleForm')"
-            class="block login-btn"
-            :disabled="loginButtonStatus"
-            >{{ model == "login" ? "登录" : "注册" }}</el-button
-          >
+          <el-button type="danger" @click="submitForm('ruleForm')" class="block login-btn" :disabled="loginButtonStatus">{{ model == "login" ? "登录" : "注册" }}</el-button>
         </el-form-item>
       </el-form>
       <!-- 表单 end -->
@@ -100,7 +47,7 @@
 import sha1 from "js-sha1";
 import { GetSms, Register, Login } from "../../api/login.js"; //3.触发调用接口
 import { stripscript, validateEmail, validatePass } from "@/utils/validate.js";
-import { reactive, ref, onMounted } from "@vue/composition-api"; //1.导入composition-api
+import { reactive, ref, onMounted, root } from "@vue/composition-api"; //1.导入composition-api
 
 export default {
   name: "login",
@@ -162,7 +109,7 @@ export default {
     ]);
     const ruleForm = reactive({
       username: "1762030184@qq.com",
-      password: "",
+      password: "zb12345678",
       password2: "",
       checkCode: ""
     });
@@ -322,7 +269,8 @@ export default {
         password: sha1(ruleForm.password),
         code: ruleForm.checkCode
       };
-      Login(requestData)
+      root.$store
+        .dispatch("login/login", requestData)
         .then(response => {
           let data = response.data;
           root.$message({

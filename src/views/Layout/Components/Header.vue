@@ -1,14 +1,14 @@
 <template>
   <el-header height="75px" id="header-wrap">
-    <div class="pull-left header-left" @click="toggleMenu(50)">
+    <div class="pull-left header-left" @click="toggleMenu()">
       <svg-icon iconClass="menu" className="menu" class="menu"></svg-icon>
     </div>
     <div class="pull-right header-right">
       <div class="user-info">
         <img src="@/assets/avatar.jpeg" alt="avatar" class="avatar">
-        <span>管理员</span>
+        <span> {{userName}} </span>
       </div>
-      <div class="powerBox">
+      <div class="powerBox" @click="exit()">
         <svg-icon iconClass="power" className="power"></svg-icon>
       </div>
     </div>
@@ -16,18 +16,24 @@
 </template>
 
 <script>
-import { ref, reactive } from "@vue/composition-api";
+import { ref, reactive, computed } from "@vue/composition-api";
 export default {
   name: "",
   setup(props, { root }) {
     /* 数据 */
+    const userName = computed( () => root.$store.state.login.user_name)
     /* 方法 */
     const toggleMenu = (width) => {   
-      root.$store.commit("SET_COLLAPSE");
-      root.$store.commit("SET_NAVWIDTH", {width});
+      root.$store.commit("app/SET_COLLAPSE");
+    };
+    const exit = () => {   
+      root.$router.push('login')
     };
     return {
-      toggleMenu
+      userName,
+      //方法
+      toggleMenu,
+      exit
     };
   }
 };

@@ -1,12 +1,15 @@
-import Vue from "vue";
-// vue 默认指向 "vue/dist/vue.runtime.common.js" ——runtime
+import Vue from "vue";  // vue 默认指向 "vue/dist/vue.runtime.common.js" ——runtime
 import App from "./App.vue";
-import router from "./router";
+//vue-router
+import router from "./router/index";
+import "./router/permit";
+//vuex
 import store from "./store";
 
-//完全引入element-ui
+//element-ui
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+
 //composition-api
 import VueCompositionApi from '@vue/composition-api'
 
@@ -14,7 +17,7 @@ import VueCompositionApi from '@vue/composition-api'
 Vue.use(ElementUI);
 Vue.use(VueCompositionApi);
 
-// 解析svg文件，使用svg组件
+// 全局组件-svg
 import './icons/index'
 
 Vue.config.productionTip = false;
