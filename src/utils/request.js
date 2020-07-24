@@ -17,8 +17,8 @@ const service = axios.create({
 service.interceptors.request.use(
   function(config) {
     //对请求数据处理
-    config.headers['Tokey'] = getToKen();
-    config.headers['UserName'] = getUserName();
+    // config.headers['Token'] = getToKen();
+    // config.headers['UserName'] = getUserName();
     return config;
   },
   function(error) {
