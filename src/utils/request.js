@@ -1,21 +1,25 @@
 /* 
 1.定义拦截器 
 */
-import axios from "axios";
-import { Message } from "element-ui";
+import axios from 'axios';
+import { Message } from 'element-ui';
+import { getToKen, getUserName } from '@/utils/cookie';
 
-const BASEURL = process.env.NODE_ENV === "production" ? "" : "/api";
+// const BASEURL = process.env.NODE_ENV === "production" ? "" : "/api";
+const BASEURL = '/api';
 
 // 创建实例
 const service = axios.create({
   baseURL: BASEURL,
-  timeout: 10000
+  timeout: 10000,
 });
 // 添加请求拦截器
 service.interceptors.request.use(
-  function(request) {
+  function(config) {
     //对请求数据处理
-    return request;
+    config.headers['Tokey'] = getToKen();
+    config.headers['UserName'] = getUserName();
+    return config;
   },
   function(error) {
     //对请求错误处理
@@ -32,8 +36,8 @@ service.interceptors.response.use(
     if (data.resCode !== 0) {
       Message({
         message: data.message,
-        type: "error",
-        showClose: true
+        type: 'error',
+        showClose: true,
       });
       return Promise.reject(error);
     } else {

@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "login",
+    redirect: "index",
     hidden: true,
     meta: { name: "主页" }
   },
@@ -37,7 +37,7 @@ const routes = [
   {
     path: "/info",
     name: "Info",
-    redirect: "infoList",
+    redirect: "console",
     component: () => import("../views/Layout/index.vue"),
     meta: {
       name: "信息管理",

@@ -1,5 +1,6 @@
-import cookie from 'cookie_js'
+//使用cookie
 
+import cookie from 'cookie_js'
 
 //token
 export function getToKen() {

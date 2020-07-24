@@ -10,3 +10,41 @@
 $mainColor: #f56c6c;
 $bgColor: #344a5f;
 $secColor:#cccccc;
+
+@mixin webkit($type, $value) {
+  -webkit-#{$type}: $value;
+  -moz-#{$type}: $value;
+  -o-#{$type}: $value;
+  -ms-#{$type}: $value;
+  #{$type}: $value;
+}
+
+@mixin labelWrap($align, $width, $line-hight: 40) {
+  label {
+    float: left;
+    text-align: $align;
+    width: $width + px;
+    line-height: $line-hight + px;
+  }
+  .wrap-content {
+    margin-left: $width + px;
+  }
+}
+
+@for $i from 1 to 100 {
+  .margin-top-#{$i} {
+    margin-top: $i * 1px;
+  }
+  .margin-bottom-#{$i} {
+    margin-bottom: $i * 1px;
+  }
+}
+
+@for $i from 1 to 100 {
+  .padding-left-#{$i} {
+    padding-left: $i * 1px;
+  }
+  .padding-right-#{$i} {
+    padding-right: $i * 1px;
+  }
+}
